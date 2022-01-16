@@ -22,8 +22,12 @@ public class Game {
 	
 	//Boss Properties
 	private int bHealth,bossNum;// other Boss related stats.
-	
-	
+	private String bDamVul;//this variable will contain different letters that will communicate what types of vulnerabilities the current boss has
+	/* b - blunt damage
+	 * s - slashing damage
+	 * p - piercing damage
+	 * r - random damage
+	 */
 	//constructor
 	public Game() {
 		//general
@@ -50,7 +54,6 @@ public class Game {
 		int input;
 		try {
 			input = reader.nextInt();
-			
 		}catch(Exception e) {
 			input = -1;
 		}
@@ -60,13 +63,27 @@ public class Game {
 	
 	
 	//player Behaviors
-	
-	
+	public void PlayerAttack() {
+		
+	}
+	public void PlayerItem() {
+		
+	}
+	public void PlayerCheck() {
+		
+	}
+	public void PlayerDodge() {
+		
+	}
 	
 	
 	//Boss Behaviors
-	
-	
+	public void BossAttack() {
+		
+	}
+	public void BossSetUp() {
+		
+	}
 	
 	
 	
