@@ -344,7 +344,7 @@ public class Game {
 		if(bossNum <= 5)
 			System.out.println("You suddenly encounter an even more deadlier foe than the "+BossName(1)+", the " +BossName()+".");
 		else {
-			System.out.print("You have killed all that stand in your way... and yet you still feel hollow.");
+			System.out.print("You have killed all that stand in your way... and yet you feel hollow inside.");
 			gameEnd =true;
 		}
 			
