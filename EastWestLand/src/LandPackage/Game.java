@@ -59,7 +59,9 @@ public class Game {
 	public boolean HasEnded() {
 		return gameEnd;
 	}
-	
+	public int BossHealth() {
+		return bHealth;
+	}
 	
 	//General Behaviors
 	public int Input() {//this behavior is here to try and catch errors.
@@ -291,6 +293,10 @@ public class Game {
 			System.out.println("You take "+(5*bossNum)+" damage.\n");
 			pHealth -= 5*bossNum;
 			System.out.println("You have "+pHealth+" hp remaining.");
+			if(pHealth < 0) {
+				System.out.print("Your wounds are too severe to continue and You die.");//
+				gameEnd = true;
+			}
 		}
 		else
 			System.out.println("You roll to the left and dodge The "+BossName()+"'s attack.");
@@ -331,7 +337,13 @@ public class Game {
 		bossNum++;
 		
 		bHealth = bossNum * 25;
-		System.out.println("You suddenly encounter an even more deadlier foe than the "+BossName(1)+", the " +BossName()+".");
+		if(bossNum <= 5)
+			System.out.println("You suddenly encounter an even more deadlier foe than the "+BossName(1)+", the " +BossName()+".");
+		else {
+			System.out.print("You have killed all that stand in your way... and yet you still feel hollow.");
+			gameEnd =true;
+		}
+			
 		switch(bossNum) {
 		case 1:
 			bDamVul = "br";
@@ -408,7 +420,15 @@ public class Game {
 	
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		
+		Game game = new Game();
+		System.out.println("You Begin to wonder what you are doing in the EastWestLandian woods when suddenly you are ambushed by a " + game.BossName()+".\n time to start combat.");
+		while(!game.HasEnded()) {
+			game.PlayerTurn();
+			if(game.BossHealth()<=0)
+				game.BossSetUp();
+			else
+				game.BossAttack();
+		}
 	}
 	
 }
