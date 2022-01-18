@@ -73,13 +73,13 @@ public class Game {
 		}
 		return input;
 	}
-	private int MRand(int min,int max) {
+	private int MRand(int min,int max) {//this will generate random numbers between the min and the max.
 		return (int)((double)(max - min)*Math.random() + (double)(min)+0.5);
 	}
 	
 	
 	//player Behaviors
-	public void PlayerTurn() {
+	public void PlayerTurn() {//this is the players entire turn.
 		System.out.print(BossName()+" : "+bHealth +"/"+(bossNum * 25)+"\n\n\n\nYou : " + pHealth+"/"+(30 + 20 * con)+"\n\nWhat are you going to do?\n(1)Attack\n(2)Item\n(3)Check\n(4)Dodge\n>>");
 		int choice = 0;
 		choice = Input();
@@ -107,7 +107,7 @@ public class Game {
 	
 	
 	
-	public void PlayerAttack() {
+	public void PlayerAttack() {//this is the attack action for the player.
 		System.out.print("you can either attack with...\n(1) Your Hammer\n(2) Your Spear\n(3) Your Sword\n(4) Your Dice\n>>");
 		int choice = 0;
 		choice = Input();
@@ -203,7 +203,7 @@ public class Game {
 	}
 	
 	
-	public void PlayerCheck() {
+	public void PlayerCheck() {//this the check action for the player.
 		switch(bossNum) {
 		case 1:
 			System.out.println("The " + BossName() + " looks very brittle and probably doesn't want probibility anywhere near it's mathematical concepts.");//Mathematical
@@ -227,7 +227,7 @@ public class Game {
 	}
 	
 	
-	public void PlayerDodge() {
+	public void PlayerDodge() {//this is the dodge action for the player.
 		System.out.print("You begin preparing to dodge The "+BossName()+" attack.");
 		if(MRand(1,100)>= 100 - luck *10)
 			dodge = true;
@@ -242,7 +242,7 @@ public class Game {
 		return numOfItems;
 	}
 	
-	public String ItemName(int item) {
+	public String ItemName(int item) {//this behavior will give the name of the healing item.
 		String name = "";
 		switch(item) {
 		case 0:
@@ -390,7 +390,7 @@ public class Game {
 		}
 		return name;
 	}
-	public String BossName() {
+	public String BossName() {//this overloaded behavior will display the current boss's name unless a number is put into the parameter which offsets the current boss to refer to previous bosses.
 		String name = "";
 		switch(bossNum) {
 		case 1:
@@ -418,7 +418,7 @@ public class Game {
 	
 	
 	
-	public static void main(String[] args) {
+	public static void main(String[] args) {//main
 		// TODO Auto-generated method stub
 		Game game = new Game();
 		System.out.println("You Begin to wonder what you are doing in the EastWestLandian woods when suddenly you are ambushed by a " + game.BossName()+".\n time to start combat.");
