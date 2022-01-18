@@ -17,7 +17,7 @@ public class Game {
 	//player properties
 	private int pHealth,str,luck,con;//other player stats listed here
 	private int[] itemBag;
-	private boolean dodge;
+	private boolean dodge,gameEnd;
 	
 	
 	//Boss Properties
@@ -44,6 +44,7 @@ public class Game {
 		con = 1;
 		pHealth = 30 + 20 * con;
 		dodge = false;
+		gameEnd = false;
 		
 		itemBag = new int[4];
 		for(int i = 0; i < 4;i++)
@@ -54,6 +55,12 @@ public class Game {
 		bHealth = bossNum * 25;
 		
 	}
+	//enumerations
+	public boolean HasEnded() {
+		return gameEnd;
+	}
+	
+	
 	//General Behaviors
 	public int Input() {//this behavior is here to try and catch errors.
 		int input;
@@ -71,7 +78,29 @@ public class Game {
 	
 	//player Behaviors
 	public void PlayerTurn() {
-		System.out.print(BossName()+" : "+bHealth +"/"+(bossNum * 25)+"\n\n\n\nYou : " + pHealth+"/"+(30 + 20 * con)+"\n\nWhat ");
+		System.out.print(BossName()+" : "+bHealth +"/"+(bossNum * 25)+"\n\n\n\nYou : " + pHealth+"/"+(30 + 20 * con)+"\n\nWhat are you going to do?\n(1)Attack\n(2)Item\n(3)Check\n(4)Dodge\n>>");
+		int choice = 0;
+		choice = Input();
+		if(choice > 4|| choice < 1)
+			choice = MRand(1,4);
+		switch(choice) {
+		case 1:
+			PlayerAttack();
+			break;
+		case 2:
+			PlayerItem();
+			break;
+		case 3:
+			PlayerCheck();
+			break;
+		case 4:
+			PlayerDodge();
+			break;
+		default:
+			System.out.println("You shouldn't be able to see this.");
+			break;
+			
+		}
 	}
 	
 	
@@ -158,7 +187,15 @@ public class Game {
 			choice = Input();
 			if(choice > Bagfullness()|| choice < 1)
 				choice = MRand(1,Bagfullness());
-			
+			System.out.println("You heal "+ 25*itemBag[choice-1] + "hp.");
+			pHealth += 25*itemBag[choice-1];
+			if(pHealth > 30 + 20 * con)
+				pHealth = 30 + 20 * con;
+			//Item reorganization
+			for(int i = choice-1; i > 3;i++) {
+				itemBag[i] = itemBag[i+1];
+			}
+			itemBag[3] = 0;
 			
 		}
 	}
@@ -282,7 +319,17 @@ public class Game {
 			System.out.println("Somehow you get no stats.");
 			break;
 		}
+		int qitem = bossNum,tItem; 
+		for(int i = Bagfullness() - 1; i < 4;i++) {
+			if(qitem > 0) {
+				tItem = MRand(1,qitem);
+				qitem -= tItem;
+				itemBag[i] = tItem;
+				System.out.print("You got a " + ItemName(tItem) + ".");
+			}
+		}
 		bossNum++;
+		
 		bHealth = bossNum * 25;
 		System.out.println("You suddenly encounter an even more deadlier foe than the "+BossName(1)+", the " +BossName()+".");
 		switch(bossNum) {
@@ -305,6 +352,7 @@ public class Game {
 			bDamVul = "";
 			break;
 		}
+		
 	}
 	public String BossName(int offset) {//this overloaded behavior will display the current boss's name unless a number is put into the parameter which offsets the current boss to refer to previous bosses.
 		String name = "";
