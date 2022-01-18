@@ -326,6 +326,7 @@ public class Game {
 			System.out.println("Somehow you get no stats.");
 			break;
 		}
+		
 		System.out.println("You Rest and restore your health.");
 		pHealth = 30 + 20 * con;
 		int qitem = bossNum,tItem; 
