@@ -206,7 +206,7 @@ public class Game {
 			}
 			System.out.println("You take "+(5*bossNum)+" damage.\n");
 			pHealth -= 5*bossNum;
-			System.out.println("You have "+pHealth+" hp remaining.")
+			System.out.println("You have "+pHealth+" hp remaining.");
 		}
 		else
 			System.out.println("You roll to the left and dodge The "+BossName()+"'s attack.");
