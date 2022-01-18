@@ -291,8 +291,8 @@ public class Game {
 				System.out.println("The " + BossName() + " Starts breaking the world around you.");//
 				break;
 			}
-			System.out.println("You take "+(5*bossNum)+" damage.\n");
-			pHealth -= 5*bossNum;
+			System.out.println("You take "+(3*bossNum)+" damage.\n");
+			pHealth -= 3*bossNum;
 			System.out.println("You have "+pHealth+" hp remaining.");
 			if(pHealth < 0) {
 				System.out.print("Your wounds are too severe to continue and You die.");//
@@ -335,7 +335,7 @@ public class Game {
 				tItem = MRand(1,qitem);
 				qitem -= tItem;
 				itemBag[i] = tItem;
-				System.out.print("You got a " + ItemName(tItem) + ".");
+				System.out.println("You got a " + ItemName(tItem) + ".");
 			}
 		}
 		bossNum++;
