@@ -326,8 +326,10 @@ public class Game {
 			System.out.println("Somehow you get no stats.");
 			break;
 		}
+		System.out.println("You Rest and restore your health.");
+		pHealth = 30 + 20 * con;
 		int qitem = bossNum,tItem; 
-		for(int i = Bagfullness() - 1; i < 4;i++) {
+		for(int i = Bagfullness(); i < 4;i++) {
 			if(qitem > 0) {
 				tItem = MRand(1,qitem);
 				qitem -= tItem;
