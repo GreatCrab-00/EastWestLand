@@ -145,15 +145,29 @@ public class Game {
 	}
 	
 	
-	public void PlayerItem() {
-		
+	public void PlayerItem() {//this is for when the player wants to use an item.
+		System.out.print("You Check your bag.");
+		if(Bagfullness() == 0) {
+			System.out.println("Your bag is empty.");
+		}
+		else {
+			System.out.println("Which item would you like to use?");
+			for(int i = 1;i <= Bagfullness();i++)
+				System.out.println("(" + i +") " + ItemName(itemBag[i-1]));
+			int choice = 0;
+			choice = Input();
+			if(choice > Bagfullness()|| choice < 1)
+				choice = MRand(1,Bagfullness());
+			
+			
+		}
 	}
 	
 	
 	public void PlayerCheck() {
 		switch(bossNum) {
 		case 1:
-			 System.out.println("The " + BossName() + " looks very brittle and probably doesn't want probibility anywhere near it's mathematical concepts.");//Mathematical
+			System.out.println("The " + BossName() + " looks very brittle and probably doesn't want probibility anywhere near it's mathematical concepts.");//Mathematical
 			break;
 		case 2:
 			System.out.println("The " + BossName() + " is actually a Skeleton in a robe and has a heart in the middle of it's ribcage.");//
@@ -180,6 +194,39 @@ public class Game {
 			dodge = true;
 	}
 	
+	public int Bagfullness() {//this is here to total up the number of items in the bag.
+		int numOfItems = 0;
+		for(int i = 0;i < 4;i++) {
+			if(itemBag[i] != 0)
+				numOfItems++;
+		}
+		return numOfItems;
+	}
+	
+	public String ItemName(int item) {
+		String name = "";
+		switch(item) {
+		case 0:
+			name = "none";
+			break;
+		case 1:
+			name = "Bandage";
+			break;
+		case 2:
+			name = "Heal Potion";
+			break;
+		case 3:
+			name = "Green Goo";
+			break;
+		case 4:
+			name = "Bag of sanity";
+			break;
+		case 5:
+			name = "The One Ointment";
+			break;
+		}
+		return name;
+	}
 	
 	//Boss Behaviors
 	public void BossAttack() {//the behavior that regulates the bosses attacks.
