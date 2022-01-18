@@ -53,6 +53,7 @@ public class Game {
 		//boss
 		bossNum = 1;
 		bHealth = bossNum * 25;
+		bDamVul = "br";
 		
 	}
 	//enumerations
