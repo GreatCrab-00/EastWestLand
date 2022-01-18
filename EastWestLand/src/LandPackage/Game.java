@@ -70,12 +70,86 @@ public class Game {
 	
 	
 	//player Behaviors
-	public void PlayerAttack() {
-		
+	public void PlayerTurn() {
+		System.out.print(BossName()+" : "+bHealth +"/"+(bossNum * 25)+"\n\n\n\nYou : " + pHealth+"/"+(30 + 20 * con)+"\n\nWhat ");
 	}
+	
+	
+	
+	public void PlayerAttack() {
+		System.out.print("you can either attack with...\n(1) Your Hammer\n(2) Your Spear\n(3) Your Sword\n(4) Your Dice\n>>");
+		int choice = 0;
+		choice = Input();
+		if(choice > 4|| choice < 1)
+			choice = MRand(1,4);
+		switch(choice) {
+		case 1:
+			System.out.println("You hit the "+ BossName()+" with your hammer.");
+			if(bDamVul.indexOf("b") == -1) {
+				System.out.println("You deal " + 3*str+ " damage.");
+				bHealth -= 3*str;
+			}
+			else {
+				System.out.println("You hear a crunch and deal " + 6*str+ " damage.");
+				bHealth -= 6*str;
+			}
+				
+			break;
+		case 2:
+			System.out.println("You strike the "+ BossName()+" with your Spear.");
+			if(MRand(1,100)>= 100 - luck*3) {
+				System.out.println("You deal a critical strike causing " + 20*str+ " damage.");
+				bHealth -= 20*str;
+			}
+			else if(bDamVul.indexOf("p") == -1) {
+				System.out.println("You deal " + 2*str+ " damage.");
+				bHealth -= 2*str;
+			}
+			else {
+				System.out.println("You hear a squelch and deal " + 4*str+ " damage.");
+				bHealth -= 4*str;
+			}
+			break;
+		case 3:
+			System.out.println("You slash at the "+ BossName()+" with your sword.");
+			if(bDamVul.indexOf("s") == -1) {
+				System.out.println("You deal " + 5*str+ " damage.");
+				bHealth -= 5*str;
+			}
+			else {
+				System.out.println("You hear a slice and deal " + 10*str+ " damage.");
+				bHealth -= 10*str;
+			}
+			break;
+		case 4:
+			int rollvalue = 0;
+			
+			if(str > 1)
+				System.out.println("You throw a die at the "+ BossName()+".");
+			else
+				System.out.println("You throw some dice at the "+ BossName()+".");
+			if(bDamVul.indexOf("r") == -1) {
+				for(int i = 0; i < str;i++)
+					rollvalue += MRand(1,8);
+				System.out.println("You deal " + rollvalue+ " damage.");
+				bHealth -= rollvalue;
+			}
+			else {
+				for(int i = 0; i < str*2;i++)
+					rollvalue += MRand(1,8);
+				System.out.println("Your attack is strangely effective and deals " + rollvalue+ " damage.");
+				bHealth -= rollvalue;
+			}
+			break;
+		}
+	}
+	
+	
 	public void PlayerItem() {
 		
 	}
+	
+	
 	public void PlayerCheck() {
 		switch(bossNum) {
 		case 1:
@@ -98,13 +172,17 @@ public class Game {
 			break;
 		}
 	}
+	
+	
 	public void PlayerDodge() {
-		
+		System.out.print("You begin preparing to dodge The "+BossName()+" attack.");
+		if(MRand(1,100)>= 100 - luck *10)
+			dodge = true;
 	}
 	
 	
 	//Boss Behaviors
-	public void BossAttack() {
+	public void BossAttack() {//the behavior that regulates the bosses attacks.
 		if(!dodge) {
 			switch(bossNum) {
 			case 1:
@@ -126,16 +204,19 @@ public class Game {
 				System.out.println("The " + BossName() + " Starts breaking the world around you.");//
 				break;
 			}
+			System.out.println("You take "+(5*bossNum)+" damage.\n");
+			pHealth -= 5*bossNum;
+			System.out.println("You have "+pHealth+" hp remaining.")
 		}
 		else
-			System.out.println("You roll to the left and dodge their attack.");
+			System.out.println("You roll to the left and dodge The "+BossName()+"'s attack.");
 		dodge = false;
 	}
-	public void BossSetUp() {
+	public void BossSetUp() {//this sets up the boss once the previous one has been killed. It also serves as the behavior that levels up the player between bosses.
 		System.out.print("You have Successfully killed the " + BossName() + ".\nPlease choose a stat to level up.\n(1)Strength : " + str + "\n(2)Constitution : " + con + "\n(3)Luck : " + luck + "\n>>");//Constitution
 		int choice = 0;
 		choice = Input();
-		if(choice > 3|| choice > 1)
+		if(choice > 3|| choice < 1)
 			choice = MRand(1,3);
 		switch(choice) {
 		case 1:
@@ -155,6 +236,7 @@ public class Game {
 			break;
 		}
 		bossNum++;
+		bHealth = bossNum * 25;
 		System.out.println("You suddenly encounter an even more deadlier foe than the "+BossName(1)+", the " +BossName()+".");
 		switch(bossNum) {
 		case 1:
@@ -181,7 +263,7 @@ public class Game {
 		String name = "";
 		switch(bossNum-offset) {
 		case 1:
-			name = "Rombus";
+			name = "Parallelogram";
 			break;
 		case 2:
 			name = "Bone Mage";
@@ -205,7 +287,7 @@ public class Game {
 		String name = "";
 		switch(bossNum) {
 		case 1:
-			name = "Rombus";
+			name = "Parallelogram";
 			break;
 		case 2:
 			name = "Bone Mage";
